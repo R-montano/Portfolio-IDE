@@ -1,0 +1,359 @@
+/* RESET GLOBAL */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* 🔥esto evita desbordes laterales */
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%; /* 🔥 esto es la clave para ancho completo */
+  margin: 0;
+}
+
+body {
+  background: #1e1e1e;
+  color: #cccccc;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow: hidden; /*con esto evito scroll externo */
+}
+
+/* APP */
+.app {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* con esto evito que algo empuje el layout */
+}
+
+/* ACTIVITY BAR */
+.activity-bar {
+  width: 50px;
+  min-width: 50px; /* 🔥 evita que se comprima */
+  background: #333333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  border-right: 1px solid #3c3c3c;
+}
+
+.activity-item {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #858585;
+  cursor: pointer;
+  font-size: 22px;
+  position: relative;
+}
+
+.activity-item:hover {
+  color: #ffffff;
+  background: #2a2d2e;
+}
+
+.activity-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #007acc;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  min-width: 220px; /*  evita que cambie tamaño */
+  background: #252526;
+  border-right: 1px solid #3c3c3c;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  list-style: none;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar li:hover {
+  background: #373737;
+}
+
+/* EDITOR AREA */
+.editor {
+  flex: 1;
+  min-width: 0; /*  MUY IMPORTANTE → evita overflow a la derecha */
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #2d2d2d;
+  border-right: 1px solid #3c3c3c;
+  font-size: 13px;
+  color: #ccc;
+  white-space: nowrap;
+}
+
+.tab.active {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.tab:hover {
+  background: #3a3a3a;
+}
+
+.close {
+  margin-left: 6px;
+  color: #aaa;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.close:hover {
+  color: #f14c4c;
+}
+
+/* CONTENIDO DEL EDITOR */
+.editor > *:not(.tabs) {
+  flex: 1;
+  min-height: 0;
+  min-width: 0; /* 🔥 evita que Monaco empuje el layout */
+}
+
+/* MONACO FIX */
+.monaco-editor {
+  padding-top: 5px;
+}
+
+/* TERMINAL */
+.terminal {
+  flex: 1;
+  min-width: 0;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 10px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.terminal-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.terminal-input span {
+  color: #00ff9d;
+}
+
+.terminal-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #00ff9d;
+  outline: none;
+  font-family: inherit;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
+}
+
+/* CONTACT FORM */
+.contact-container {
+  height: 100%;
+  display: flex;
+  align-items: center;       /*  centra vertical */
+  justify-content: center;   /*  centra horizontal */
+  background: #1e1e1e;
+}
+
+/*contact-box*/
+.contact-box {
+  width: 100%;
+  max-width: 420px;
+  background: #1e1e1e;
+  padding: 20px;
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/*TITULO DE FORMULARIO*/
+.contact-title {
+  font-size: 15px;
+  color: #4fc3f7; /* color para el titulo del formulario de contacto, azul tipo VS Code */
+  margin-bottom: 15px;
+  border-bottom: 1px solid #3c3c3c;
+  padding-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+/* INPUTS */
+.contact-form input,
+.contact-form textarea {
+  background: #252526;
+  border: 1px solid #3c3c3c;
+  color: #d4d4d4;
+  padding: 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  outline: none;
+  font-family: inherit;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+/* FOCUS (VS CODE STYLE) */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #007acc;
+  box-shadow: 0 0 0 1px #007acc;
+}
+
+/* BUTTON */
+.contact-form button {
+  background: #0e639c;
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.contact-form button:hover {
+  background: #1177bb;
+}
+
+/* STATUS */
+.contact-status {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #9cdcfe;
+}
+
+/* ICONOS CONTACTO (PRO) */
+.contact-icons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center; /*  centra horizontal */
+  align-items: center;
+  gap: 15px;
+}
+
+/* ICONO */
+.icon {
+  width: 42px;
+  height: 42px;
+  background: #252526;
+  border: 1px solid #3c3c3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #cccccc;
+  position: relative;
+  transition: all 0.2s ease;
+  font-size: 18px;
+}
+
+/* HOVER PRO */
+.icon:hover {
+  background: #2d2d2d;
+  border-color: #007acc;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(0, 122, 204, 0.4);
+}
+
+/* TOOLTIP */
+.icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -28px;
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+/* SHOW TOOLTIP */
+.icon:hover::after {
+  opacity: 1;
+}
+

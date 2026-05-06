@@ -1,0 +1,31 @@
+import { VscFiles, VscTerminal } from "react-icons/vsc";
+
+export default function ActivityBar({ openTab, activeView, setActiveView }) {
+  return (
+    <div className="activity-bar">
+      
+      {/* EXPLORER */}
+      <div
+        className={`activity-item ${activeView === "explorer" ? "active" : ""}`}
+        onClick={() => {
+          setActiveView("explorer");
+          openTab("about", "file");
+        }}
+      >
+        <VscFiles />
+      </div>
+
+      {/* TERMINAL */}
+      <div
+        className={`activity-item ${activeView === "terminal" ? "active" : ""}`}
+        onClick={() => {
+          setActiveView("terminal");
+          openTab("terminal", "terminal");
+        }}
+      >
+        <VscTerminal />
+      </div>
+
+    </div>
+  );
+}
