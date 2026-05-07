@@ -12,11 +12,48 @@ export default function CodeEditor({ activeFile }) {
         language={files[activeFile].language}
         value={files[activeFile].content}
         options={{
+          //  editor base
           fontSize: 14,
-          minimap: { enabled: false },
-          smoothScrolling: true,
           automaticLayout: true,
+          smoothScrolling: true,
           scrollBeyondLastLine: false,
+
+          //  minimap
+          minimap: {
+            enabled: false
+          },
+
+          //  WORD WRAP 
+          wordWrap: "on",
+          wrappingIndent: "same",
+          wrappingStrategy: "advanced",
+
+          //  scrollbar
+          scrollbar: {
+            horizontal: "hidden"
+          },
+
+          //  line numbers estilo VS Code
+          lineNumbers: "on",
+          lineNumbersMinChars: 3,
+          lineDecorationsWidth: 10,
+
+          //  cursor 
+          cursorBlinking: "smooth",
+          cursorSmoothCaretAnimation: "on",
+
+          //  highlight línea activa
+          renderLineHighlight: "all",
+
+          //  indent guides
+          guides: {
+            indentation: true
+          },
+
+          //  padding superior
+          padding: {
+            top: 10
+          }
         }}
       />
     </div>

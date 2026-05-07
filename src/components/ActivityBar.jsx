@@ -1,12 +1,22 @@
-import { VscFiles, VscTerminal } from "react-icons/vsc";
+import {
+  VscFiles,
+  VscTerminal,
+  VscMail
+} from "react-icons/vsc";
 
-export default function ActivityBar({ openTab, activeView, setActiveView }) {
+export default function ActivityBar({
+  openTab,
+  activeView,
+  setActiveView
+}) {
   return (
     <div className="activity-bar">
-      
+
       {/* EXPLORER */}
       <div
-        className={`activity-item ${activeView === "explorer" ? "active" : ""}`}
+        className={`activity-item ${
+          activeView === "explorer" ? "active" : ""
+        }`}
         onClick={() => {
           setActiveView("explorer");
           openTab("about", "file");
@@ -15,9 +25,24 @@ export default function ActivityBar({ openTab, activeView, setActiveView }) {
         <VscFiles />
       </div>
 
+      {/* CONTACT */}
+      <div
+        className={`activity-item ${
+          activeView === "contact" ? "active" : ""
+        }`}
+        onClick={() => {
+          setActiveView("contact");
+          openTab("contact", "contact");
+        }}
+      >
+        <VscMail />
+      </div>
+
       {/* TERMINAL */}
       <div
-        className={`activity-item ${activeView === "terminal" ? "active" : ""}`}
+        className={`activity-item ${
+          activeView === "terminal" ? "active" : ""
+        }`}
         onClick={() => {
           setActiveView("terminal");
           openTab("terminal", "terminal");

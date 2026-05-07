@@ -41,7 +41,7 @@ export default function Terminal({
     break;
 
   case clean === "skills":
-    response = ["React, JavaScript, CSS, HTML"];
+    response = ["React, JavaScript, CSS, HTML, Node.js, Next.js, TypeScrip..."];
     break;
 
   case clean === "whoami":

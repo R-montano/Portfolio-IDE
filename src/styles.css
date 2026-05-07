@@ -1,135 +1,254 @@
-/* RESET GLOBAL */
+/* =========================
+   RESET GLOBAL
+========================= */
 *,
 *::before,
 *::after {
-  box-sizing: border-box; /* 🔥esto evita desbordes laterales */
+  box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body,
+#root {
+  width: 100%;
   height: 100%;
-  width: 100%; /* 🔥 esto es la clave para ancho completo */
   margin: 0;
 }
 
 body {
+  overflow: hidden;
   background: #1e1e1e;
   color: #cccccc;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  overflow: hidden; /*con esto evito scroll externo */
 }
 
-/* APP */
+/* =========================
+   APP LAYOUT
+========================= */
 .app {
   display: flex;
-  height: 100%;
   width: 100%;
-  overflow: hidden; /* con esto evito que algo empuje el layout */
+  height: 100%;
+  overflow: hidden;
 }
 
-/* ACTIVITY BAR */
+/* =========================
+   ACTIVITY BAR
+========================= */
 .activity-bar {
   width: 50px;
-  min-width: 50px; /* 🔥 evita que se comprima */
+  min-width: 50px;
   background: #333333;
+  border-right: 1px solid #3c3c3c;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding-top: 10px;
-  border-right: 1px solid #3c3c3c;
 }
 
 .activity-item {
   width: 100%;
   height: 48px;
+
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #858585;
-  cursor: pointer;
+
   font-size: 22px;
-  position: relative;
+  color: #858585;
+
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .activity-item:hover {
-  color: #ffffff;
   background: #2a2d2e;
+  color: #ffffff;
 }
 
 .activity-item.active::before {
   content: "";
+
   position: absolute;
   left: 0;
+
   width: 3px;
   height: 100%;
+
   background: #007acc;
 }
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
   width: 220px;
-  min-width: 220px; /*  evita que cambie tamaño */
+  min-width: 220px;
+
+  padding: 10px;
+
+  overflow-y: auto;
+
   background: #252526;
   border-right: 1px solid #3c3c3c;
-  padding: 10px;
-  overflow-y: auto;
 }
 
 .sidebar h2 {
+  margin-bottom: 10px;
+
   font-size: 11px;
   color: #888;
-  margin-bottom: 10px;
+
   text-transform: uppercase;
 }
 
-.sidebar ul {
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar li {
-  list-style: none;
-  padding: 6px 8px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 13px;
+.sidebar-item,
+.folder,
+.file-list li {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+
+  padding: 7px 8px;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  color: #cccccc;
+
+  transition: 0.2s;
 }
 
-.sidebar li:hover {
+.sidebar-item:hover,
+.folder:hover,
+.file-list li:hover {
   background: #373737;
 }
 
-/* EDITOR AREA */
-.editor {
-  flex: 1;
-  min-width: 0; /*  MUY IMPORTANTE → evita overflow a la derecha */
-  display: flex;
-  flex-direction: column;
-  background: #1e1e1e;
-  overflow: hidden;
+/* TERMINAL BUTTON */
+.terminal-item {
+  margin-bottom: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
-/* TABS */
+/* ICONO TERMINAL */
+.terminal-item svg {
+  color: #4fc3f7;
+  font-size: 16px;
+}
+
+/* FOLDER */
+.folder {
+  margin-top: 4px;
+
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* CONTENIDO IZQUIERDO FOLDER */
+.folder-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* FOLDER DISTRIBUCIÓN */
+.folder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.folder-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.folder-main-icon {
+  color: #dcb67a;
+  font-size: 16px;
+}
+
+/* FILES */
+.file-list {
+  margin: 4px 0 0 18px;
+  padding: 0;
+}
+
+.file-list li {
+  list-style: none;
+}
+
+/* FILE ICONS */
+.js-icon {
+  font-size: 15px;
+  color: #f7df1e;
+}
+
+.json-icon {
+  font-size: 15px;
+  color: #32c766;
+}
+
+/* =========================
+   EDITOR AREA
+========================= */
+.editor {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #1e1e1e;
+}
+
+/* =========================
+   TABS
+========================= */
 .tabs {
   display: flex;
+
+  flex-shrink: 0;
+
   background: #2d2d2d;
   border-bottom: 1px solid #3c3c3c;
-  flex-shrink: 0;
 }
 
 .tab {
   display: flex;
   align-items: center;
   gap: 8px;
+
   padding: 6px 12px;
+
+  white-space: nowrap;
+
   cursor: pointer;
-  background: #2d2d2d;
-  border-right: 1px solid #3c3c3c;
+
   font-size: 13px;
   color: #ccc;
-  white-space: nowrap;
+
+  background: #2d2d2d;
+  border-right: 1px solid #3c3c3c;
+
+  transition: 0.2s;
+}
+
+.tab:hover {
+  background: #3a3a3a;
 }
 
 .tab.active {
@@ -137,55 +256,98 @@ body {
   color: #fff;
 }
 
-.tab:hover {
-  background: #3a3a3a;
-}
-
 .close {
   margin-left: 6px;
-  color: #aaa;
-  cursor: pointer;
+
   font-weight: bold;
+  color: #aaa;
+
+  cursor: pointer;
 }
 
 .close:hover {
   color: #f14c4c;
 }
 
-/* CONTENIDO DEL EDITOR */
+/* =========================
+   CONTENT AREA
+========================= */
 .editor > *:not(.tabs) {
   flex: 1;
+
+  min-width: 0;
   min-height: 0;
-  min-width: 0; /* 🔥 evita que Monaco empuje el layout */
 }
 
-/* MONACO FIX */
+/* =========================
+   MONACO EDITOR
+========================= */
 .monaco-editor {
   padding-top: 5px;
 }
 
-/* TERMINAL */
+.monaco-editor,
+.monaco-editor .overflow-guard,
+.monaco-scrollable-element,
+.view-lines {
+  max-width: 100% !important;
+}
+
+/* =========================
+   TERMINAL
+========================= */
 .terminal {
   flex: 1;
+
   min-width: 0;
-  background: #1e1e1e;
-  color: #d4d4d4;
-  padding: 10px;
-  font-size: 13px;
+
   display: flex;
   flex-direction: column;
+
+  padding: 10px;
+
+  background: #1e1e1e;
+  color: #d4d4d4;
+
+  font-size: 13px;
 }
 
 .terminal-output {
   flex: 1;
+
   overflow-y: auto;
+
   white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.terminal-line {
+  display: flex;
+  gap: 14px;
+
+  width: 100%;
+}
+
+.line-number {
+  min-width: 30px;
+
+  user-select: none;
+
+  text-align: right;
+  color: #6a9955;
+}
+
+.line-content {
+  flex: 1;
+
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .terminal-input {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
 }
 
 .terminal-input span {
@@ -194,14 +356,197 @@ body {
 
 .terminal-input input {
   flex: 1;
-  background: transparent;
+
   border: none;
-  color: #00ff9d;
   outline: none;
+
+  background: transparent;
+
+  color: #00ff9d;
   font-family: inherit;
 }
 
-/* SCROLLBAR */
+/* =========================
+   CONTACT FORM
+========================= */
+.contact-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+
+  background: #1e1e1e;
+}
+
+.contact-box {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 20px;
+
+  border-radius: 8px;
+  border: 1px solid #3c3c3c;
+
+  background: #1e1e1e;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* TITLE */
+.contact-title {
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #3c3c3c;
+
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: #4fc3f7;
+}
+
+/* FORM */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* INPUTS */
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+
+  border: 1px solid #3c3c3c;
+  border-radius: 4px;
+
+  outline: none;
+
+  background: #252526;
+
+  color: #d4d4d4;
+  font-size: 13px;
+  font-family: inherit;
+
+  transition: 0.2s;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #007acc;
+  box-shadow: 0 0 0 1px #007acc;
+}
+
+/* BUTTON */
+.contact-form button {
+  padding: 10px;
+
+  border: none;
+  border-radius: 4px;
+
+  background: #0e639c;
+
+  color: white;
+  font-size: 13px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.contact-form button:hover {
+  background: #1177bb;
+}
+
+/* STATUS */
+.contact-status {
+  margin-top: 10px;
+
+  font-size: 13px;
+  color: #9cdcfe;
+}
+
+/* =========================
+   CONTACT ICONS
+========================= */
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+  border: 1px solid #3c3c3c;
+
+  background: #252526;
+
+  color: #cccccc;
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.icon:hover {
+  transform: translateY(-2px);
+
+  background: #2d2d2d;
+  border-color: #007acc;
+
+  color: #ffffff;
+
+  box-shadow: 0 0 10px rgba(0, 122, 204, 0.4);
+}
+
+/* TOOLTIP */
+.icon::after {
+  content: attr(data-tooltip);
+
+  position: absolute;
+  bottom: -28px;
+
+  padding: 4px 8px;
+
+  border-radius: 4px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  white-space: nowrap;
+
+  background: #333;
+  color: #fff;
+  font-size: 11px;
+
+  transition: 0.2s;
+}
+
+.icon:hover::after {
+  opacity: 1;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -214,146 +559,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
-
-/* CONTACT FORM */
-.contact-container {
-  height: 100%;
-  display: flex;
-  align-items: center;       /*  centra vertical */
-  justify-content: center;   /*  centra horizontal */
-  background: #1e1e1e;
-}
-
-/*contact-box*/
-.contact-box {
-  width: 100%;
-  max-width: 420px;
-  background: #1e1e1e;
-  padding: 20px;
-  border: 1px solid #3c3c3c;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-/*TITULO DE FORMULARIO*/
-.contact-title {
-  font-size: 15px;
-  color: #4fc3f7; /* color para el titulo del formulario de contacto, azul tipo VS Code */
-  margin-bottom: 15px;
-  border-bottom: 1px solid #3c3c3c;
-  padding-bottom: 8px;
-  letter-spacing: 0.5px;
-}
-
-/* FORM */
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 500px;
-}
-
-/* INPUTS */
-.contact-form input,
-.contact-form textarea {
-  background: #252526;
-  border: 1px solid #3c3c3c;
-  color: #d4d4d4;
-  padding: 10px;
-  font-size: 13px;
-  border-radius: 4px;
-  outline: none;
-  font-family: inherit;
-}
-
-.contact-form textarea {
-  min-height: 120px;
-  resize: none;
-}
-
-/* FOCUS (VS CODE STYLE) */
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #007acc;
-  box-shadow: 0 0 0 1px #007acc;
-}
-
-/* BUTTON */
-.contact-form button {
-  background: #0e639c;
-  border: none;
-  padding: 10px;
-  color: white;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 13px;
-  transition: 0.2s;
-}
-
-.contact-form button:hover {
-  background: #1177bb;
-}
-
-/* STATUS */
-.contact-status {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #9cdcfe;
-}
-
-/* ICONOS CONTACTO (PRO) */
-.contact-icons {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center; /*  centra horizontal */
-  align-items: center;
-  gap: 15px;
-}
-
-/* ICONO */
-.icon {
-  width: 42px;
-  height: 42px;
-  background: #252526;
-  border: 1px solid #3c3c3c;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #cccccc;
-  position: relative;
-  transition: all 0.2s ease;
-  font-size: 18px;
-}
-
-/* HOVER PRO */
-.icon:hover {
-  background: #2d2d2d;
-  border-color: #007acc;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 0 10px rgba(0, 122, 204, 0.4);
-}
-
-/* TOOLTIP */
-.icon::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: -28px;
-  background: #333;
-  color: #fff;
-  padding: 4px 8px;
-  font-size: 11px;
-  border-radius: 4px;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.2s;
-  white-space: nowrap;
-}
-
-/* SHOW TOOLTIP */
-.icon:hover::after {
-  opacity: 1;
-}
-

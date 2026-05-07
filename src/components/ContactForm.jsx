@@ -22,37 +22,51 @@ export default function ContactForm() {
   const sendEmail = (e) => {
     e.preventDefault();
 
+    // 🔐 validación básica
+    if (!form.name || !form.email || !form.message) {
+      setStatus("⚠ Completa todos los campos");
+      return;
+    }
+
+    if (form.message.length < 10) {
+      setStatus("⚠ El mensaje es demasiado corto");
+      return;
+    }
+
     setLoading(true);
     setStatus("⏳ Enviando mensaje...");
 
     emailjs
       .send(
-        "service_6up4zga",
-        "template_01bx5oc",
+        import.meta.env.VITE_EMAIL_SERVICE,
+        import.meta.env.VITE_EMAIL_TEMPLATE,
         {
           name: form.name,
           email: form.email,
           message: form.message
         },
-        "ibym-s0DbAtp68Cez"
+        import.meta.env.VITE_EMAIL_KEY
       )
       .then(() => {
-        setStatus("✔ Mensaje enviado correctamente. Me pondré en contacto contigo pronto.");
+        setStatus("✔ Mensaje enviado con éxito. Te responderé lo antes posible 🚀");
         setForm({ name: "", email: "", message: "" });
       })
       .catch(() => {
-        setStatus("✖ Error al enviar mensaje");
+        setStatus("✖ Error al enviar mensaje. Intenta más tarde.");
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
+  // 🔐 email protegido
+  const email = ["rgaso.info.j", "@", "gmail.com"].join("");
+
   return (
     <div className="contact-container">
       <div className="contact-box">
 
-        <h2 className="contact-title">Formulario de contacto</h2>
+        <h2 className="contact-title">Contáctame</h2>
 
         <form className="contact-form" onSubmit={sendEmail}>
           <input
@@ -74,25 +88,26 @@ export default function ContactForm() {
 
           <textarea
             name="message"
-            placeholder="Mensaje"
+            placeholder="Cuéntame sobre tu proyecto..."
             value={form.message}
             onChange={handleChange}
             required
           />
 
           <button type="submit" disabled={loading}>
-            {loading ? "Enviando..." : "Enviar"}
+            {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
         </form>
 
         <div className="contact-status">{status}</div>
 
+        {/* ICONOS PRO */}
         <div className="contact-icons">
           <div
             className="icon"
             data-tooltip="Email"
             onClick={() =>
-              window.location.href = "mailto:tuemail@gmail.com"
+              (window.location.href = `mailto:${email}`)
             }
           >
             <FaEnvelope />
@@ -102,7 +117,7 @@ export default function ContactForm() {
             className="icon"
             data-tooltip="GitHub"
             onClick={() =>
-              window.open("https://github.com/tuusuario", "_blank")
+              window.open("https://github.com/R-montano", "_blank", "noopener,noreferrer")
             }
           >
             <FaGithub />
@@ -112,7 +127,7 @@ export default function ContactForm() {
             className="icon"
             data-tooltip="LinkedIn"
             onClick={() =>
-              window.open("https://linkedin.com/in/tuusuario", "_blank")
+              window.open("https://www.linkedin.com/in/josue-gazo-4b49a1324", "_blank", "noopener,noreferrer")
             }
           >
             <FaLinkedin />

@@ -8,10 +8,11 @@ import ContactForm from "./components/ContactForm";
 import "./styles.css";
 
 export default function App() {
-  // 🔥 sistema de tabs
-  const [tabs, setTabs] = useState([
-    { id: "about", type: "file" }
-  ]);
+  //  sistema de tabs
+const [tabs, setTabs] = useState([
+          //{ id: "terminal", type: "terminal" },
+          //{ id: "about", type: "file" }
+        ]);
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [activeView, setActiveView] = useState("explorer");
@@ -25,7 +26,7 @@ export default function App() {
 
   // 🚀 abrir tabs (controlando tipos especiales)
   const openTab = (id, type = "file") => {
-    // 🔥 fuerza tipos especiales
+    //  fuerza tipos especiales
     if (id === "contact") type = "contact";
     if (id === "terminal") type = "terminal";
 
@@ -42,7 +43,7 @@ export default function App() {
     }
   };
 
-  // 🧠 render dinámico limpio
+  //  render dinámico limpio
   const renderContent = () => {
     if (!activeTab) return null;
 
