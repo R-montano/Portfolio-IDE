@@ -1,4 +1,5 @@
 export default function Terminal({
+  t,
   openTab,
   input,
   setInput,
@@ -6,110 +7,186 @@ export default function Terminal({
   setOutput
 }) {
 
-  // 🧠 mensaje inicial reutilizable
-  const initialMessage = "Bienvenido a la terminal. Escribe 'help' para ver comandos.";
+  // =========================
+  // INITIAL MESSAGE
+  // =========================
+  const initialMessage =
+    t.terminalWelcome;
 
+  // =========================
+  // COMMANDS
+  // =========================
   const handleCommand = (cmd) => {
-    const clean = cmd.trim().toLowerCase();
+
+    const clean =
+      cmd.trim().toLowerCase();
 
     let response = [];
 
-   switch (true) {
-  case clean === "help":
-    response = [
-      "Comandos disponibles:",
-      "- about",
-      "- projects",
-      "- skills",
-      "- contact",
-      "- whoami",
-      "- clear",
-      "- email"
-    ];
-    break;
+    switch (true) {
 
-  case clean === "about":
-  case clean === "cd about":
-    openTab("about", "file");
-    response = ["Abriendo sección about..."];
-    break;
+      // HELP
+      case clean === "help":
 
-  case clean === "projects":
-  case clean === "cd projects":
-    openTab("projects", "file");
-    response = ["Abriendo proyectos..."];
-    break;
+        response = [
+          t.availableCommands,
+          "- about",
+          "- projects",
+          "- skills",
+          "- contact",
+          "- whoami",
+          "- clear",
+          "- email"
+        ];
 
-  case clean === "skills":
-    response = ["React, JavaScript, CSS, HTML, Node.js, Next.js, TypeScrip..."];
-    break;
+        break;
 
-  case clean === "whoami":
-    response = ["Rommel Josue Gaso - Frontend Developer"];
-    break;
+      // ABOUT
+      case clean === "about":
+      case clean === "cd about":
 
-  case clean === "contact":
-    openTab("contact", "contact");
-    response = [
-      "Inicializando módulo de contacto...",
-      "Abriendo formulario..."
-    ];
-    break;
+        openTab("about", "file");
 
-    case clean === "email": {
-  const email = ["rgaso.info.j", "@", "gmail.com"].join("");
+        response = [
+          t.openingAbout
+        ];
 
-  response = [
-    "Preparando cliente de correo...",
-    "Redirigiendo..."
-  ];
+        break;
 
-  setTimeout(() => {
-    window.location.href = `mailto:${email}`;
-  }, 1000);
+      // PROJECTS
+      case clean === "projects":
+      case clean === "cd projects":
 
-  break;
-}
+        openTab("projects", "file");
 
-  case clean.startsWith("open "): {
-    const file = clean.replace("open ", "");
-    openTab(file, "file");
-    response = [`Abriendo ${file}...`];
-    break;
-  }
+        response = [
+          t.openingProjects
+        ];
 
-  case clean === "clear":
-    setOutput([initialMessage]);
-    setInput("");
-    return;
+        break;
 
-  default:
-    response = [`Comando no reconocido: ${clean}`];
-}
+      // SKILLS
+      case clean === "skills":
 
-    setOutput((prev) => [...prev, `> ${clean}`, ...response]);
+        response = [
+          t.skillsResponse
+        ];
+
+        break;
+
+      // WHOAMI
+      case clean === "whoami":
+
+        response = [
+          t.whoamiResponse
+        ];
+
+        break;
+
+      // CONTACT
+      case clean === "contact":
+
+        openTab("contact", "contact");
+
+        response = [
+          t.initializingContact,
+          t.openingForm
+        ];
+
+        break;
+
+      // EMAIL
+      case clean === "email": {
+
+        const email =
+          ["rgaso.info.j", "@", "gmail.com"].join("");
+
+        response = [
+          t.preparingMail,
+          t.redirecting
+        ];
+
+        setTimeout(() => {
+          window.location.href = `mailto:${email}`;
+        }, 1000);
+
+        break;
+      }
+
+      // OPEN FILE
+      case clean.startsWith("open "): {
+
+        const file =
+          clean.replace("open ", "");
+
+        openTab(file, "file");
+
+        response = [
+          `${t.opening} ${file}...`
+        ];
+
+        break;
+      }
+
+      // CLEAR
+      case clean === "clear":
+
+        setOutput([initialMessage]);
+
+        setInput("");
+
+        return;
+
+      // DEFAULT
+      default:
+
+        response = [
+          `${t.commandNotFound}: ${clean}`
+        ];
+    }
+
+    setOutput((prev) => [
+      ...prev,
+      `> ${clean}`,
+      ...response
+    ]);
+
     setInput("");
   };
 
+  // =========================
+  // UI
+  // =========================
   return (
     <div className="terminal">
+
       <div className="terminal-output">
         {output.map((line, i) => (
-          <div key={i}>{line}</div>
+          <div key={i}>
+            {line}
+          </div>
         ))}
       </div>
 
       <div className="terminal-input">
+
         <span>$</span>
+
         <input
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) =>
+            setInput(e.target.value)
+          }
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleCommand(input);
+            if (e.key === "Enter") {
+              handleCommand(input);
+            }
           }}
           autoFocus
         />
+
       </div>
+
     </div>
   );
 }

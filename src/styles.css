@@ -559,3 +559,168 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #4f4f4f;
 }
+
+/* =========================
+   WELCOME SCREEN
+========================= */
+.welcome-screen {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at top, rgba(0, 122, 204, 0.12), transparent 40%),
+    #1e1e1e;
+
+  animation: fadeIn 0.8s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* CARD CENTRAL */
+.welcome-screen::before {
+  content: "";
+
+  position: absolute;
+
+  width: 700px;
+  height: 320px;
+
+  background: rgba(255, 255, 255, 0.02);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-radius: 18px;
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 0 40px rgba(0, 122, 204, 0.08),
+    0 10px 40px rgba(0, 0, 0, 0.45);
+
+  z-index: 0;
+}
+
+/* TITLE */
+.welcome-title {
+  position: relative;
+  z-index: 1;
+
+  margin: 0;
+
+  font-size: 48px;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 12px rgba(79, 195, 247, 0.35);
+
+  animation: floatText 3s ease-in-out infinite;
+}
+
+/* SUBTITLE */
+.welcome-subtitle {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 14px;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  color: #4fc3f7;
+
+  letter-spacing: 1px;
+}
+
+/* STACK */
+.welcome-stack {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 18px;
+
+  font-size: 13px;
+
+  color: #8b949e;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+}
+
+/* ANIMACIÓN ENTRADA */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* FLOAT TITLE */
+@keyframes floatText {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================
+   LANGUAGE SWITCH
+========================= */
+.language-switch {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+
+  z-index: 999;
+
+  display: flex;
+  gap: 8px;
+}
+
+.language-switch button {
+  background: #252526;
+  border: 1px solid #3c3c3c;
+
+  color: #cccccc;
+
+  padding: 6px 10px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-family: inherit;
+
+  transition: 0.2s;
+}
+
+.language-switch button:hover {
+  background: #2d2d2d;
+  border-color: #007acc;
+  color: #ffffff;
+}

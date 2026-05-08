@@ -7,7 +7,8 @@ import {
 export default function ActivityBar({
   openTab,
   activeView,
-  setActiveView
+  setActiveView,
+  t
 }) {
   return (
     <div className="activity-bar">
@@ -15,11 +16,17 @@ export default function ActivityBar({
       {/* EXPLORER */}
       <div
         className={`activity-item ${
-          activeView === "explorer" ? "active" : ""
+          activeView === "explorer"
+            ? "active"
+            : ""
         }`}
+        title={t.explorer}
         onClick={() => {
+
           setActiveView("explorer");
+
           openTab("about", "file");
+
         }}
       >
         <VscFiles />
@@ -28,11 +35,17 @@ export default function ActivityBar({
       {/* CONTACT */}
       <div
         className={`activity-item ${
-          activeView === "contact" ? "active" : ""
+          activeView === "contact"
+            ? "active"
+            : ""
         }`}
+        title={t.contact}
         onClick={() => {
+
           setActiveView("contact");
+
           openTab("contact", "contact");
+
         }}
       >
         <VscMail />
@@ -41,11 +54,17 @@ export default function ActivityBar({
       {/* TERMINAL */}
       <div
         className={`activity-item ${
-          activeView === "terminal" ? "active" : ""
+          activeView === "terminal"
+            ? "active"
+            : ""
         }`}
+        title={t.terminal}
         onClick={() => {
+
           setActiveView("terminal");
+
           openTab("terminal", "terminal");
+
         }}
       >
         <VscTerminal />
